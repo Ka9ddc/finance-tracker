@@ -1,14 +1,27 @@
 import { currencyFormatter } from "@/lib/utils";
+import { useState } from "react";
 
-const ExpenseItem = ({color, title, total}) => {
+import ViewExpenseModal from "./modals/ViewExpenseModal";
+
+const ExpenseItem = ({ expense }) => {
+
+  const [showViewExpenseModal, setShowViewExpenseModal] = useState(false)
+
   return (
-    <div className="flex items-center justify-between px-4 py-4 bg-slate-700 rounded-3xl">
-          <div className="flex items-center gap-2">
-          <div className="w-[25px] h-[25px] rounded-full" style={{backgroundColor: color}} />
-          <h4 className="capitalize">{title}</h4>
+    <>
+      <ViewExpenseModal show={showViewExpenseModal} onClose={setShowViewExpenseModal} expense={expense}/>
+        <button onClick={() => {
+          setShowViewExpenseModal(true)
+        }}>
+          <div className="flex items-center justify-between px-4 py-4 bg-slate-700 rounded-3xl">
+            <div className="flex items-center gap-2">
+              <div className="w-[25px] h-[25px] rounded-full" style={{backgroundColor: expense.color}} />
+            <h4 className="capitalize">{expense.title}</h4>
+            </div>
+            <p>{currencyFormatter(expense.total)}</p>
           </div>
-          <p>{currencyFormatter(total)}</p>
-        </div>
+        </button>
+    </>
   )
 }
 
