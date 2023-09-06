@@ -2,6 +2,7 @@ import { useRef, useEffect, useContext } from "react"
 import { currencyFormatter } from "@/lib/utils"
 
 import { financeContext } from "@/lib/store/finance-context";
+import { authContext } from "@/lib/store/auth-context";
 
 //Firebase
 import { db } from "@/lib/firebase";
@@ -18,6 +19,8 @@ export default function AddIncomeModal({show, onclose}){
     const descriptionRef = useRef()
     const {income, addIncomeItem, removeIncomeItem} = useContext(financeContext)
 
+    const {user} = useContext(authContext)
+
     //Handler Functions
     const addIncomeHandler = async (e) => {
       e.preventDefault()
@@ -25,7 +28,8 @@ export default function AddIncomeModal({show, onclose}){
       const newIncome = {
         amount: +amountRef.current.value,
         description: descriptionRef.current.value,
-        createdAt: new Date()
+        createdAt: new Date(),
+        uid: user.uid
       };
 
       try {

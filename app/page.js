@@ -5,13 +5,16 @@ import { currencyFormatter } from "@/lib/utils";
 import ExpenseItem from "@/components/ExpenseItem";
 
 import { financeContext } from "@/lib/store/finance-context";
+import { authContext } from "@/lib/store/auth-context";
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js'
 
 import { Doughnut } from "react-chartjs-2";
 import { userAgent } from "next/server";
+
 import AddIncomeModal from "@/components/modals/AddIncomeModal";
 import AddExpenseModal from "@/components/modals/AddExpenseModal";
+import SignIn from "@/components/SignIn";
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -22,7 +25,9 @@ const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
 
   const [balance, setBalance] = useState(0)
 
-  const {expenses, income} = useContext(financeContext)
+  const {expenses, income} = useContext(financeContext);
+
+  const {user, loading} = useContext(authContext)
 
   useEffect(()=> {
     const newBalance = income.reduce((total, i) => {
@@ -35,6 +40,10 @@ const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
 
     setBalance(newBalance)
   }, [expenses, income])
+
+  if(!user){
+    return <SignIn />;
+  }
 
   return (
     <>
