@@ -12,6 +12,7 @@ import { collection, addDoc, getDocs, doc, deleteDoc, Timestamp } from "firebase
 import {FaRegTrashAlt} from 'react-icons/fa'
 
 import Modal from "@/components/Modal";
+import { toast } from "react-toastify";
 
 export default function AddIncomeModal({show, onclose}){
 
@@ -37,8 +38,10 @@ export default function AddIncomeModal({show, onclose}){
 
           descriptionRef.current.value = "";
           amountRef.current.value = "";
+          toast.success("Income Added Successfully!")
       } catch (error) {
         console.log(error.message)
+        toast.error(error.message)
       }
 
 
@@ -48,8 +51,10 @@ export default function AddIncomeModal({show, onclose}){
   const deleteIncomeEntryHandler = async (incomeId) => {
     try {
         await removeIncomeItem(incomeId)
+        toast.success("Income Deleted Successfully")
     } catch (error) {
         console.log(error.message)
+        toast.error(error.message)
     }
   }
 
