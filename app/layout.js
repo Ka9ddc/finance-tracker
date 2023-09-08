@@ -12,14 +12,13 @@ import AuthContextProvider from '@/lib/store/auth-context';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'Finance Tracker',
-  description: 'Aplicação criada para controlar suas finanças',
-}
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <title>Finance Tracker</title>
+        <meta name='description' content='Application for you to monitor and control your personal finances!' />
+      </head>
       <body className={inter.className}>
         <AuthContextProvider>
           <FinanceContextProvider>
