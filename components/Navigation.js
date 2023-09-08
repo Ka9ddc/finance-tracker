@@ -1,3 +1,5 @@
+"use client"
+
 import { useContext } from "react";
 
 import { authContext } from "@/lib/store/auth-context";
@@ -8,7 +10,8 @@ function Navbar() {
 
   const {user, loading, logout} = useContext(authContext)
 
-  return <div className="container max-w-2xl px-6 py-6 mx-auto">
+  return (
+    <div className="container max-w-2xl px-6 py-6 mx-auto">
     <div className="flex justify-between items-center">
       {/* User information */}
       {user && !loading && (
@@ -36,6 +39,7 @@ function Navbar() {
       )}
     </div>
   </div>
+  )
 }
 
 export default Navbar

@@ -13,7 +13,7 @@ export default function SignIn() {
 
             <div className="flex flex-col overflow-hidden shadow-md shadow-slate-500 bg-slate-800 rounded-2xl">
                 <div className="h-52">
-                    <img className="object-cover w-full h-full" src="https://upload-os-bbs.mihoyo.com/upload/2021/01/06/5481824/5d703ec2befb2e30fd41c7e11913252d_1052675723287965703.png"/>
+                    <img className="object-cover w-full h-full" src="https://i.imgur.com/yJoG5uw.gif"/>
                 </div>
 
                 <div className="px-4 py-4">

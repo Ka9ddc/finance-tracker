@@ -15,13 +15,16 @@ import { userAgent } from "next/server";
 import AddIncomeModal from "@/components/modals/AddIncomeModal";
 import AddExpenseModal from "@/components/modals/AddExpenseModal";
 import SignIn from "@/components/SignIn";
+import Loader from "@/components/Loader";
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Home() {
+
 const [showAddIncomeModal, setShowAddIncomeModal] = useState(false);
 const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
+const [showLoader, setShowLoader] = useState(true)
 
   const [balance, setBalance] = useState(0)
 
@@ -41,8 +44,15 @@ const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
     setBalance(newBalance)
   }, [expenses, income])
 
+  if(showLoader){
+    setTimeout(() => {
+      setShowLoader(false)
+    }, 4000);
+    return <Loader />
+  }
+
   if(!user){
-    return <SignIn />;
+    return <SignIn />
   }
 
   return (
@@ -53,7 +63,7 @@ const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
     {/* Add Expense Modal */}
     <AddExpenseModal show={showAddExpenseModal} onclose={setShowAddExpenseModal} />
 
-    <main className="container max-w-2xl mx-auto px-6">
+<main className="container max-w-2xl mx-auto px-6">
     <section className="py-3">
       <small className="text-gray-400 text-md">My Balance</small>
       <h2 className="text-4xl font-bold">{ currencyFormatter(balance)}</h2>
@@ -97,6 +107,8 @@ const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
         </div>
     </section>
   </main>
+
   </>
   )
+
 }
